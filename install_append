@@ -1,0 +1,6 @@
+mkdir -p %{buildroot}/usr/share/cassandra/
+cp -r build/dist/* %{buildroot}/usr/share/cassandra/
+chmod 0755 %{buildroot}/usr/share/cassandra/bin/*
+rm -rf %{buildroot}/usr/share/cassandra/lib/sigar-bin/*.dll
+rm -rf %{buildroot}/usr/share/cassandra/lib/sigar-bin/*.lib
+

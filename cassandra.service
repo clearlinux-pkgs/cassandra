@@ -1,0 +1,20 @@
+[Unit]
+Description=Cassandra Server Service
+After=network.service
+
+[Service]
+Type=simple
+
+PIDFile=/var/run/cassandra.pid
+User=cassandra
+Group=cassandra
+ExecStart=/usr/share/cassandra/bin/cassandra -f -p /var/run/cassandra.pid
+StandardOutput=journal
+StandardError=journal
+LimitNOFILE=100000
+LimitMEMLOCK=infinity
+LimitNPROC=32768
+LimitAS=infinity
+
+[Install]
+WantedBy=multi-user.target

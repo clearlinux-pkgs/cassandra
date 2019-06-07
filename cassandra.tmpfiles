@@ -1,0 +1,6 @@
+d /var/lib/cassandra 0750 cassandra cassandra - -
+d /var/lib/cassandra/data 0750 cassandra cassandra - -
+d /var/lib/cassandra/commitlog 0750 cassandra cassandra - -
+d /var/lib/cassandra/saved_caches 0750 cassandra cassandra - -
+d /var/lib/cassandra/hints 0750 cassandra cassandra - -
+d /var/lib/cassandra/cdc_raw 0750 cassandra cassandra - -
