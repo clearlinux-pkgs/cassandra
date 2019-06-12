@@ -4,4 +4,4 @@ cassandra-dep
 openjdk
 openjdk-dev
 apache-ant
-python
+python3

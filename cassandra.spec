@@ -4,12 +4,12 @@
 #
 Name     : cassandra
 Version  : 3.11.4
-Release  : 2
+Release  : 3
 URL      : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source0  : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source1  : cassandra.service
 Source2  : cassandra.tmpfiles
-Summary  : Cassandra is a highly scalable, eventually consistent, distributed, structured key-value store.
+Summary  : Apache Cassandra NoSQL database
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: cassandra-config = %{version}-%{release}
@@ -26,8 +26,8 @@ Requires: openjdk
 Requires: openjdk-dev
 Requires: psutil
 Requires: pycodestyle
-Requires: python
 Requires: python-mock
+Requires: python3
 Requires: six
 Requires: thrift
 BuildRequires : Sphinx
@@ -42,8 +42,8 @@ BuildRequires : openjdk
 BuildRequires : openjdk-dev
 BuildRequires : psutil
 BuildRequires : pycodestyle
-BuildRequires : python
 BuildRequires : python-mock
+BuildRequires : python3
 BuildRequires : six
 BuildRequires : thrift
 Patch1: 0001-Set-cassandra-runtime-directories-for-data-commitlog.patch
@@ -96,8 +96,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1559905763
-export GCC_IGNORE_WERROR=1
+export SOURCE_DATE_EPOCH=1560378095
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -109,7 +108,7 @@ make  %{?_smp_mflags} || ant artifacts -d
 
 
 %install
-export SOURCE_DATE_EPOCH=1559905763
+export SOURCE_DATE_EPOCH=1560378095
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cassandra
 cp LICENSE.txt %{buildroot}/usr/share/package-licenses/cassandra/LICENSE.txt
