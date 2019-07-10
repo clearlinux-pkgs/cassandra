@@ -4,7 +4,7 @@
 #
 Name     : cassandra
 Version  : 3.11.4
-Release  : 3
+Release  : 4
 URL      : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source0  : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source1  : cassandra.service
@@ -16,18 +16,14 @@ Requires: cassandra-config = %{version}-%{release}
 Requires: cassandra-data = %{version}-%{release}
 Requires: cassandra-license = %{version}-%{release}
 Requires: cassandra-services = %{version}-%{release}
-Requires: apache-ant
-Requires: cassandra-dep
 Requires: decorator
 Requires: docopt
 Requires: enum34
 Requires: nose
 Requires: openjdk
-Requires: openjdk-dev
 Requires: psutil
 Requires: pycodestyle
 Requires: python-mock
-Requires: python3
 Requires: six
 Requires: thrift
 BuildRequires : Sphinx
@@ -39,11 +35,9 @@ BuildRequires : docopt
 BuildRequires : enum34
 BuildRequires : nose
 BuildRequires : openjdk
-BuildRequires : openjdk-dev
 BuildRequires : psutil
 BuildRequires : pycodestyle
 BuildRequires : python-mock
-BuildRequires : python3
 BuildRequires : six
 BuildRequires : thrift
 Patch1: 0001-Set-cassandra-runtime-directories-for-data-commitlog.patch
@@ -95,8 +89,8 @@ cp -r /usr/share/cassandra/.m2/* /builddir/.m2/
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1560378095
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1562758014
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -108,7 +102,7 @@ make  %{?_smp_mflags} || ant artifacts -d
 
 
 %install
-export SOURCE_DATE_EPOCH=1560378095
+export SOURCE_DATE_EPOCH=1562758014
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cassandra
 cp LICENSE.txt %{buildroot}/usr/share/package-licenses/cassandra/LICENSE.txt
