@@ -1,2 +1,12 @@
 # This file contains runtime requirements that get picked up but are
 # undesirable. One entry per line, no whitespace.
+decorator
+docopt
+enum34
+nose
+psutil
+pycodestyle
+python-mock
+six
+thrift
+

@@ -1,0 +1,26 @@
+From 3dc6a112cc61e697d091cc1676c30c21815c51d9 Mon Sep 17 00:00:00 2001
+From: Jue Wang <wang.jue@intel.com>
+Date: Tue, 6 Aug 2019 21:59:41 +0800
+Subject: [PATCH] remove -SNAPSHOT from the version string
+
+Signed-off-by: Jue Wang <wang.jue@intel.com>
+---
+ build.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.xml b/build.xml
+index 94b07f3..e5a2257 100644
+--- a/build.xml
++++ b/build.xml
+@@ -77,7 +77,7 @@
+     <condition property="version" value="${base.version}">
+       <isset property="release"/>
+     </condition>
+-    <property name="version" value="${base.version}-SNAPSHOT"/>
++    <property name="version" value="${base.version}"/>
+     <property name="version.properties.dir"
+               value="${build.src.resources}/org/apache/cassandra/config/" />
+     <property name="final.name" value="${ant.project.name}-${version}"/>
+-- 
+2.22.0
+

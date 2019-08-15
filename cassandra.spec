@@ -4,7 +4,7 @@
 #
 Name     : cassandra
 Version  : 3.11.4
-Release  : 4
+Release  : 5
 URL      : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source0  : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source1  : cassandra.service
@@ -16,31 +16,14 @@ Requires: cassandra-config = %{version}-%{release}
 Requires: cassandra-data = %{version}-%{release}
 Requires: cassandra-license = %{version}-%{release}
 Requires: cassandra-services = %{version}-%{release}
-Requires: decorator
-Requires: docopt
-Requires: enum34
-Requires: nose
 Requires: openjdk
-Requires: psutil
-Requires: pycodestyle
-Requires: python-mock
-Requires: six
-Requires: thrift
 BuildRequires : Sphinx
 BuildRequires : apache-ant
 BuildRequires : buildreq-distutils3
 BuildRequires : cassandra-dep
-BuildRequires : decorator
-BuildRequires : docopt
-BuildRequires : enum34
-BuildRequires : nose
 BuildRequires : openjdk
-BuildRequires : psutil
-BuildRequires : pycodestyle
-BuildRequires : python-mock
-BuildRequires : six
-BuildRequires : thrift
 Patch1: 0001-Set-cassandra-runtime-directories-for-data-commitlog.patch
+Patch2: 0002-remove-SNAPSHOT-from-the-version-string.patch
 
 %description
 Cassandra is a distributed (peer-to-peer) system for the management and storage of structured data.
@@ -80,6 +63,7 @@ services components for the cassandra package.
 %prep
 %setup -q -n cassandra-cassandra-3.11.4
 %patch1 -p1
+%patch2 -p1
 
 %build
 ## build_prepend content
@@ -90,7 +74,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1562758014
+export SOURCE_DATE_EPOCH=1565906867
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -102,7 +86,7 @@ make  %{?_smp_mflags} || ant artifacts -d
 
 
 %install
-export SOURCE_DATE_EPOCH=1562758014
+export SOURCE_DATE_EPOCH=1565906867
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/cassandra
 cp LICENSE.txt %{buildroot}/usr/share/package-licenses/cassandra/LICENSE.txt
@@ -5483,8 +5467,8 @@ rm -rf %{buildroot}/usr/share/cassandra/lib/sigar-bin/*.lib
 /usr/share/cassandra/lib/ST4-4.0.8.jar
 /usr/share/cassandra/lib/airline-0.6.jar
 /usr/share/cassandra/lib/antlr-runtime-3.5.2.jar
-/usr/share/cassandra/lib/apache-cassandra-3.11.4-SNAPSHOT.jar
-/usr/share/cassandra/lib/apache-cassandra-thrift-3.11.4-SNAPSHOT.jar
+/usr/share/cassandra/lib/apache-cassandra-3.11.4.jar
+/usr/share/cassandra/lib/apache-cassandra-thrift-3.11.4.jar
 /usr/share/cassandra/lib/asm-5.0.4.jar
 /usr/share/cassandra/lib/caffeine-2.2.6.jar
 /usr/share/cassandra/lib/cassandra-driver-core-3.0.1-shaded.jar
