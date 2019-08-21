@@ -4,23 +4,80 @@
 #
 Name     : cassandra
 Version  : 3.11.4
-Release  : 5
+Release  : 6
 URL      : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source0  : https://github.com/apache/cassandra/archive/cassandra-3.11.4.tar.gz
 Source1  : cassandra.service
 Source2  : cassandra.tmpfiles
-Summary  : Apache Cassandra NoSQL database
+Summary  : Cassandra is a highly scalable, eventually consistent, distributed, structured key-value store.
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: cassandra-config = %{version}-%{release}
 Requires: cassandra-data = %{version}-%{release}
-Requires: cassandra-license = %{version}-%{release}
 Requires: cassandra-services = %{version}-%{release}
 Requires: openjdk
 BuildRequires : Sphinx
 BuildRequires : apache-ant
 BuildRequires : buildreq-distutils3
-BuildRequires : cassandra-dep
+BuildRequires : buildreq-mvn
+BuildRequires : mvn-ant
+BuildRequires : mvn-ant-launcher
+BuildRequires : mvn-antlr
+BuildRequires : mvn-apache
+BuildRequires : mvn-apache-rat
+BuildRequires : mvn-asm
+BuildRequires : mvn-byteman
+BuildRequires : mvn-cassandra
+BuildRequires : mvn-codehaus-jackson
+BuildRequires : mvn-commons-beanutils
+BuildRequires : mvn-commons-cli
+BuildRequires : mvn-commons-codec
+BuildRequires : mvn-commons-collections
+BuildRequires : mvn-commons-compress
+BuildRequires : mvn-commons-configuration
+BuildRequires : mvn-commons-digester
+BuildRequires : mvn-commons-el
+BuildRequires : mvn-commons-httpclient
+BuildRequires : mvn-commons-io
+BuildRequires : mvn-commons-lang
+BuildRequires : mvn-commons-math
+BuildRequires : mvn-commons-math3
+BuildRequires : mvn-commons-net
+BuildRequires : mvn-commons-parent
+BuildRequires : mvn-compile-command-annotations
+BuildRequires : mvn-ecj
+BuildRequires : mvn-ftpserver
+BuildRequires : mvn-guava
+BuildRequires : mvn-hadoop
+BuildRequires : mvn-hsqldb
+BuildRequires : mvn-jacoco
+BuildRequires : mvn-jersey
+BuildRequires : mvn-jets3t
+BuildRequires : mvn-jetty
+BuildRequires : mvn-jetty-parent
+BuildRequires : mvn-jmh
+BuildRequires : mvn-jna
+BuildRequires : mvn-jopt-simple
+BuildRequires : mvn-jsr305
+BuildRequires : mvn-jsr311
+BuildRequires : mvn-junit
+BuildRequires : mvn-kosmosfs
+BuildRequires : mvn-maven-ant-tasks
+BuildRequires : mvn-metrics
+BuildRequires : mvn-mina
+BuildRequires : mvn-mvnplugins
+BuildRequires : mvn-netty
+BuildRequires : mvn-nicoulaj-parent
+BuildRequires : mvn-ohc
+BuildRequires : mvn-oro
+BuildRequires : mvn-oss-parents
+BuildRequires : mvn-ow2
+BuildRequires : mvn-servlet-api
+BuildRequires : mvn-slf4j
+BuildRequires : mvn-stringtemplate4
+BuildRequires : mvn-tomcat
+BuildRequires : mvn-wikitext-project
+BuildRequires : mvn-xmlenc
 BuildRequires : openjdk
 Patch1: 0001-Set-cassandra-runtime-directories-for-data-commitlog.patch
 Patch2: 0002-remove-SNAPSHOT-from-the-version-string.patch
@@ -44,14 +101,6 @@ Group: Data
 data components for the cassandra package.
 
 
-%package license
-Summary: license components for the cassandra package.
-Group: Default
-
-%description license
-license components for the cassandra package.
-
-
 %package services
 Summary: services components for the cassandra package.
 Group: Systemd services
@@ -68,30 +117,15 @@ services components for the cassandra package.
 %build
 ## build_prepend content
 mkdir -p /builddir/.m2/
-cp -r /usr/share/cassandra/.m2/* /builddir/.m2/
+cp -r /usr/share/java/.m2/* /builddir/.m2/
 ## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1565906867
-export AR=gcc-ar
-export RANLIB=gcc-ranlib
-export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-make  %{?_smp_mflags} || ant artifacts -d
-
-
+export ANT_HOME=/usr/share/ant
+ant -d -v artifacts
 %install
-export SOURCE_DATE_EPOCH=1565906867
-rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/package-licenses/cassandra
-cp LICENSE.txt %{buildroot}/usr/share/package-licenses/cassandra/LICENSE.txt
-cp debian/copyright %{buildroot}/usr/share/package-licenses/cassandra/debian_copyright
-%make_install ||:
+
 mkdir -p %{buildroot}/usr/lib/systemd/system
 install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/systemd/system/cassandra.service
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
@@ -5646,11 +5680,6 @@ rm -rf %{buildroot}/usr/share/cassandra/lib/sigar-bin/*.lib
 /usr/share/cassandra/tools/cqlstress-example.yaml
 /usr/share/cassandra/tools/cqlstress-insanity-example.yaml
 /usr/share/cassandra/tools/lib/stress.jar
-
-%files license
-%defattr(0644,root,root,0755)
-/usr/share/package-licenses/cassandra/LICENSE.txt
-/usr/share/package-licenses/cassandra/debian_copyright
 
 %files services
 %defattr(-,root,root,-)

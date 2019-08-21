@@ -1,4 +1,4 @@
 mkdir -p /builddir/.m2/
-cp -r /usr/share/cassandra/.m2/* /builddir/.m2/
+cp -r /usr/share/java/.m2/* /builddir/.m2/
 
 

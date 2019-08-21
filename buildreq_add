@@ -1,5 +1,19 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-cassandra-dep
 openjdk
-apache-ant
+mvn-antlr
+mvn-apache
+mvn-apache-rat
+mvn-cassandra
+mvn-commons-collections
+mvn-ecj
+mvn-hadoop
+mvn-jmh
+mvn-jsr305
+mvn-junit
+mvn-maven-ant-tasks
+mvn-mvnplugins
+mvn-ohc
+mvn-ow2
+mvn-servlet-api
+mvn-wikitext-project
